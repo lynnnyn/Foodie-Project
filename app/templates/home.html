@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+{% extends 'layout.html' %}
+{% block body %}
+
+<style>
+@import 'https://fonts.googleapis.com/css?family=Lily+Script+One';
+/* body {
+  background: #eee;
+  font-family: 'Lily Script One';
+} */
+.centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 300px;
+  height: 300px;
+  margin: -150px;
+  float: left;
+  perspective: 500px;
+}
+
+.content {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+
+  transition: transform 1s;
+  transform-style: preserve-3d;
+}
+
+.card:hover .content {
+  transform: rotateY( 180deg ) ;
+  transition: transform 0.5s;
+}
+
+.front,
+.back {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background: white;
+  line-height: 300px;
+  color: #03446A;
+  text-align: center;
+  font-size: 60px;
+  border-radius: 5px;
+  backface-visibility: hidden;
+}
+
+.back {
+  background: #03446A;
+  color: white;
+  transform: rotateY( 180deg );
+}
+
+.btn-search {
+	  background: #424242;
+	  border-radius: 0;
+	  color: #fff;
+	  border-width: 1px;
+	  border-style: solid;
+	  border-color: #fff;
+	}
+	.btn-search:link, .btn-search:visited {
+	  color: #fff;
+	}
+	.btn-search:active, .btn-search:hover {
+	  background: #1c1c1c;
+	  color: #fff;
+	}
+
+.brand-name{
+  color: #fff;
+}
+.copyright{
+  color: #fff5;
+}
+.col-md-3{
+  padding-right: 5px;
+  padding-left: 5px;
+}
+.inputMoney{
+  height: 20px;
+  width: 60px;
+
+}
+.thumbnail{
+  
+  
+}
+
+.popover__title {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 24px;
+  line-height: 36px;
+  text-decoration: none;
+  color: rgb(228, 68, 68);
+  text-align: center;
+  padding: 15px 0;
+}
+
+.popover__wrapper {
+    position: relative;
+    /* margin-top: 1.5rem; */
+    display: inline-block;
+}
+.popover__content {
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    left: 0px;
+    top: 50px;
+    transform: translate(0,10px);
+    background-color: rgba(255, 255, 255, 255);
+    padding: 1.5rem;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+    width: 400px;
+}
+.popover__content:before {
+    position: absolute;
+    z-index: -1;
+    content: '';
+    right: calc(50% - 10px);
+    top: -8px;
+    border-style: solid;
+    border-width: 0 10px 10px 10px;
+    border-color: transparent transparent #BFBFBF transparent;
+    transition-duration: 0.3s;
+    transition-property: transform;
+}
+.popover__wrapper:hover .popover__content {
+    z-index: 10;
+    opacity: 1;
+    visibility: visible;
+    transform: translate(0,-20px);
+    transition: all 0.5s cubic-bezier(0.75, -0.02, 0.2, 0.97);
+}
+.popover__message {
+  text-align: center;
+}
+.caption{
+  left: 7px;
+  position: inherit;
+}
+.food_Name{
+  color:white;
+  padding: 1px;
+  font-size:18px;
+}
+.more{
+  color:#00a69999;
+}
+
+.row{
+  width:auto;
+}
+
+.container{
+  width:auto;
+  padding-right: 0px;
+    padding-left: 0px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.lib-panel {
+    margin-bottom: 20Px;
+}
+.lib-panel img {
+    width: 100%;
+    background-color: transparent;
+}
+
+.lib-panel .row,
+.lib-panel .col-md-6 {
+    padding: 0;
+    background-color: #FFFFFF;
+}
+
+
+.lib-panel .lib-row {
+    padding: 0 20px 0 20px;
+}
+
+.lib-panel .lib-row.lib-header {
+    background-color: #FFFFFF;
+    font-size: 20px;
+    padding: 10px 20px 0 20px;
+}
+
+.lib-panel .lib-row.lib-header .lib-header-seperator {
+    height: 2px;
+    width: 26px;
+    background-color: #d9d9d9;
+    margin: 7px 0 7px 0;
+}
+
+.lib-panel .lib-row.lib-desc {
+    position: relative;
+    height: 100%;
+    display: block;
+    font-size: 13px;
+}
+.lib-panel .lib-row.lib-desc a{
+    position: absolute;
+    width: 100%;
+    bottom: 10px;
+    left: 20px;
+}
+
+.row-margin-bottom {
+    margin-bottom: 20px;
+}
+
+.box-shadow {
+    -webkit-box-shadow: 0 0 10px 0 rgba(0,0,0,.10);
+    box-shadow: 0 0 10px 0 rgba(0,0,0,.10);
+}
+
+.no-padding {
+    padding: 0;
+}
+
+.col-sm-3{
+    
+}
+
+.thumbnail .caption {
+    padding: 0px;
+    color: #333333;
+}
+
+.thumbnail{
+    display: block;
+     padding: 0px; 
+    margin-bottom: 20px;
+    line-height: 1.428571429;
+    background-color: #ffffff;
+     border: 0px solid #dddddd; 
+    /* border-radius: 4px; */
+    -webkit-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+
+
+
+</style>
+
+<div class="container">
+  <img src="https://www.kettlebellkitchen.com/wp-content/uploads/2016/12/kettlebellkitchen26090-1.jpg" alt="Norway" style="width:100%;">
+  
+  <!--<input class="centered">-->
+  
+<form  class="centered" action="http://foooooodie.web.engr.illinois.edu:2000/" method="POST">
+  <div class="input-group">
+  	<input type="text" class="form-control" placeholder="Search for..." name="search" >
+  	
+    <span class="input-group-btn">
+        <button class="btn btn-search">Search</button>
+    </span>
+  </div>
+</form>
+</div>
+
+
+
+<!--<div class="container" style="width:auto">-->
+
+<!--	<div class="row" style="width:auto">-->
+<!--		<div class="box">-->
+<!--			<div class="col-lg-15">-->
+<!--			<br>-->
+<!--		</div>-->
+<!--	</div>-->
+
+
+<!--<form action="http://foooooodie.web.engr.illinois.edu:2000/" method="POST">-->
+<!--  <div class="input-group">-->
+<!--  	<input type="text" class="form-control" placeholder="Search for..." name="search" >-->
+  	
+<!--    <span class="input-group-btn">-->
+<!--        <button class="btn btn-search">Search</button>-->
+<!--    </span>-->
+<!--  </div>-->
+<!--</form>-->
+
+
+    
+
+    
+
+
+
+<!--</div>-->
+
+
+
+
+<div class="container" style="width:auto">
+
+	<div class="row" style="width:auto">
+		<div class="box">
+			<div class="col-lg-15">
+				<hr />
+				<div class="col-lg-15 text-center">
+				<h1 class="brand-name">Food Near You</h1>
+    
+
+				<hr class="visible-xs" />
+			</div>
+			<br>
+		</div>
+	</div>
+</div>
+
+    <div class="row" style="width:auto">
+      <ul class="thumbnails list-unstyled" style="max-height:100px">
+
+        {% for food in nearby %}
+        <li class="col-md-4">
+            <div style="padding:4px">
+              <img class="img-rounded" alt="450x300"  style="width: 100%" style src="{{food.image}}">
+            </div>
+            <div class="caption">
+              <a href="http://foooooodie.web.engr.illinois.edu:2000/food/{{food.id}}">    
+              <p style="margin:1px" class="food_Name">{{food.name}}</p>
+              </a>
+              <span style="color:grey">${{food.price}} | Only {{food.available_amount}} left | </span>
+              <span style="color:#4dc1be">
+              {% if food.score<=0.5 %}
+                        <i class="fas fa-star-half"></i>{{food.score}}
+                    {% elif food.score<=1 %}
+                        <i class="fas fa-star"></i>
+                        {{food.score}}
+                    {% elif food.score<=1.5 %}
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half"></i>
+                        {{food.score}}
+                    {% elif food.score<=2 %}
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        {{food.score}}
+                    {% elif food.score<=2.5 %}
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half"></i>
+                        {{food.score}}
+                    {% elif food.score<=3 %}
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        {{food.score}}
+                    {% elif food.score<=3.5 %}
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        
+                        <i class="fas fa-star-half"></i>
+                        {{food.score}}
+                    {% elif food.score<=4 %}
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i> {{food.score}}
+                    {% elif food.score<=4.5 %}
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half"></i>
+                        {{food.score}}
+                    {% else %}
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i> {{food.score}}
+                  {% endif %}
+                  </span>
+              <div class="popover__wrapper">
+              <!--<a href="#">-->
+              <!--  <span class="more"> More... </span>-->
+              <!--</a>-->
+              <div class="push popover__content">
+                <p class="popover__message">{{food.description}}</p>
+              </div>
+            </div>
+
+            </div>
+            <br>
+            <br>
+        </li>
+
+        {% endfor %}
+      </ul>
+    </div>
+</div>
+
+<!--Recommendation-->
+<div class="container">
+	<div class="row">
+		<div class="box">
+			<div class="col-lg-12">
+				<hr />
+        <div class="col-lg-12 text-center">
+				<h1 class="brand-name">Recommendation</h1>
+                <br>
+				<hr class="visible-xs" />
+		</div>
+		<br>
+		</div>
+		
+		
+	</div>
+    </div>
+
+<div class="row" style="width:auto">
+      <ul class="thumbnails list-unstyled" style="max-height:100px">
+
+        {% for food in recommendation %}
+        <li class="col-md-4">
+            <div style="padding:4px">
+              <img class="img-rounded" alt="450x300"  style="width: 100%" style src="{{food.image}}">
+            </div>
+            <div class="caption">
+              <a href="http://foooooodie.web.engr.illinois.edu:2000/food/{{food.id}}">    
+              <p style="margin:1px" class="food_Name">{{food.name}}</p>
+              </a>
+              <span style="color:grey">${{food.price}} | Only {{food.available_amount}} left | </span>
+              <span style="color:#4dc1be">
+              {% if food.score<=0.5 %}
+                        <i class="fas fa-star-half"></i>{{food.score}}
+                    {% elif food.score<=1 %}
+                        <i class="fas fa-star"></i>
+                        {{food.score}}
+                    {% elif food.score<=1.5 %}
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half"></i>
+                        {{food.score}}
+                    {% elif food.score<=2 %}
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        {{food.score}}
+                    {% elif food.score<=2.5 %}
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half"></i>
+                        {{food.score}}
+                    {% elif food.score<=3 %}
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        {{food.score}}
+                    {% elif food.score<=3.5 %}
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        
+                        <i class="fas fa-star-half"></i>
+                        {{food.score}}
+                    {% elif food.score<=4 %}
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i> {{food.score}}
+                    {% elif food.score<=4.5 %}
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half"></i>
+                        {{food.score}}
+                    {% else %}
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i> {{food.score}}
+                  {% endif %}
+                  </span>
+              <div class="popover__wrapper">
+              <!--<a href="#">-->
+              <!--  <span class="more"> More... </span>-->
+              <!--</a>-->
+              <div class="push popover__content">
+                <p class="popover__message">{{food.description}}</p>
+              </div>
+            </div>
+
+            </div>
+            <br>
+            <br>
+        </li>
+
+        {% endfor %}
+      </ul>
+    </div>
+    
+
+
+</div>
+
+<!--recommend friends-->
+<div class="container">
+	<div class="row">
+		<div class="box">
+			<div class="col-lg-12">
+				<hr />
+        <div class="col-lg-12 text-center">
+				<h1 class="brand-name">Recommended Friends</h1>
+                <br>
+				<hr class="visible-xs" />
+		</div>
+		<br>
+		</div>
+	</div>
+    </div>
+   
+
+<div class="row">
+    {%for user in users%}
+    <div class="col-sm-2" style="padding:5px">
+        <div class="thumbnail">
+            <a><img  height="200" name="aboutme" src="{{user.image}}" width="200" /></a>
+            <a href="http://foooooodie.web.engr.illinois.edu:2000/friend/{{user.id}}"><center><h3>{{user.name}}</h3></center></a>
+            <br>
+        </div>
+    </div>
+    {%endfor%}
+    
+
+    
+  
+</div>
+    
+
+
+</div>
+
+<footer>
+<div class="container">
+<div class="row">
+<div class="col-lg-12 text-center">
+<div class="copyright">Copyright &copy; Foodie 2018</div>
+</div>
+</div>
+</div>
+</footer>
+
+
+
+{% endblock %}

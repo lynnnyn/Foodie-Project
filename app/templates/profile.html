@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<!--<html>-->
+<!--<head><meta http-equiv="Content-Type" content="text/html; charset=gb18030">-->
+<!--	<title></title>-->
+<!--</head>-->
+<!--<body>-->
+{% extends "layout.html" %} {% block body %}
+<style type="text/css">@import 'https://fonts.googleapis.com/css?family=Lily+Script+One';
+/* body {
+  background: #eee;
+  font-family: 'Lily Script One';
+} */
+
+.card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 300px;
+  height: 300px;
+  margin: -150px;
+  float: left;
+  perspective: 500px;
+}
+
+.content {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+
+  transition: transform 1s;
+  transform-style: preserve-3d;
+}
+
+.card:hover .content {
+  transform: rotateY( 180deg ) ;
+  transition: transform 0.5s;
+}
+
+.front,
+.back {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background: white;
+  line-height: 300px;
+  color: #03446A;
+  text-align: center;
+  font-size: 60px;
+  border-radius: 5px;
+  backface-visibility: hidden;
+}
+
+.back {
+  background: #03446A;
+  color: white;
+  transform: rotateY( 180deg );
+}
+
+.btn-search {
+	  background: #424242;
+	  border-radius: 0;
+	  color: #fff;
+	  border-width: 1px;
+	  border-style: solid;
+	  border-color: #fff;
+	}
+	.btn-search:link, .btn-search:visited {
+	  color: #fff;
+	}
+	.btn-search:active, .btn-search:hover {
+	  background: #1c1c1c;
+	  color: #fff;
+	}
+
+.brand-name{
+  color: #fff;
+}
+.copyright{
+  color: #fff5;
+}
+
+.span3{
+  background: #0005;
+  color:#fff9;
+}
+.well{
+  border-color: #fff5
+}
+
+.fade {
+    opacity: 50;
+
+}
+
+.modal {
+      position: relative;
+}
+.vertical-alignment-helper {
+    display:table;
+    height: 100%;
+    width: 100%;
+}
+.vertical-align-center {
+    /* To center vertically */
+    display: table-cell;
+    vertical-align: middle;
+}
+.modal-content {
+    /* Bootstrap sets the size of the modal in the modal-dialog class, we need to inherit it */
+    width:inherit;
+    height:inherit;
+    /* To center horizontally */
+    margin: 0 auto;
+}
+/*.hidden {*/
+/*     display:none;*/
+/*}*/
+
+.form-check {
+  color:white
+}
+
+.table {
+	color:white
+	border-color:white
+}
+
+.popover__title {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 24px;
+  line-height: 36px;
+  text-decoration: none;
+  color: rgb(228, 68, 68);
+  text-align: center;
+  padding: 15px 0;
+}
+
+.popover__wrapper {
+    position: relative;
+    /* margin-top: 1.5rem; */
+    display: inline-block;
+}
+.popover__content {
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    left: 0px;
+    top: 40px;
+    transform: translate(0,10px);
+    background-color: rgba(255, 255, 255, 255);
+    padding: 1.5rem;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+    width: 250px;
+}
+.popover__content:before {
+    position: absolute;
+    z-index: -1;
+    content: '';
+    right: calc(50% - 10px);
+    top: -8px;
+    border-style: solid;
+    border-width: 0 10px 10px 10px;
+    border-color: transparent transparent #BFBFBF transparent;
+    transition-duration: 0.3s;
+    transition-property: transform;
+}
+.popover__wrapper:hover .popover__content {
+    z-index: 10;
+    opacity: 1;
+    visibility: visible;
+    transform: translate(0,-20px);
+    transition: all 0.5s cubic-bezier(0.75, -0.02, 0.2, 0.97);
+}
+.popover__message {
+  text-align: center;
+}
+.caption{
+  left: 7px;
+  position: inherit;
+}
+.food_Name{
+  color:white;
+  padding: 1px;
+  font-size:18px;
+}
+.more{
+  color:#00a69999;
+}
+
+.row{
+  width:auto;
+}
+
+.container{
+  width:auto;
+}
+
+
+</style>
+
+
+<div class="container">
+<div class="span3 well">
+<center><a><img class="img-circle" height="140" name="aboutme" src="{{info.image}}" width="140" /></a>
+<!--<center><a><img class="img-circle" height="140" name="aboutme" src="https://www.shutterstock.com/blog/wp-content/uploads/sites/5/2015/10/shutterstock_147173813.jpg" width="140" /></a>-->
+
+
+
+<h3>{{info.name}} | {{info.address}}</h3>
+</center>
+</div>
+</div>
+
+
+<!-- Order History -->
+
+<div class="container">
+	<div class="row">
+		<div class="box">
+			<div class="col-lg-12">
+			<hr />
+				<div class="col-lg-12 text-center">
+				    <a href="/myfood"><h1 class="brand-name" >My Food</h1></a>
+					<hr class="visible-xs" />
+				</div>
+			</div>
+		</div>
+	</div>
+
+	
+
+
+<div class="row" style="width:auto">
+      <ul class="thumbnails list-unstyled" style="max-height:100px">
+
+        {% for food in maker %}
+        <li class="col-md-4">
+            <div style="padding:4px">
+              <img class="img-rounded" alt="450x300"  style="width: 100%" style src="{{food.image}}">
+            </div>
+            <div class="caption">
+              <a href="http://foooooodie.web.engr.illinois.edu:2000/food/{{food.id}}">    
+              <p style="margin:1px" class="food_Name">{{food.name}}</p>
+              </a>
+              <span style="color:grey">${{food.price}} | Only {{food.available_amount}} left | </span>
+              <span style="color:#4dc1be">
+              {% if food.score<=0.5 %}
+                        <i class="fas fa-star-half"></i>{{food.score}}
+                    {% elif food.score<=1 %}
+                        <i class="fas fa-star"></i>
+                        {{food.score}}
+                    {% elif food.score<=1.5 %}
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half"></i>
+                        {{food.score}}
+                    {% elif food.score<=2 %}
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        {{food.score}}
+                    {% elif food.score<=2.5 %}
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half"></i>
+                        {{food.score}}
+                    {% elif food.score<=3 %}
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        {{food.score}}
+                    {% elif food.score<=3.5 %}
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        
+                        <i class="fas fa-star-half"></i>
+                        {{food.score}}
+                    {% elif food.score<=4 %}
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i> {{food.score}}
+                    {% elif food.score<=4.5 %}
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half"></i>
+                        {{food.score}}
+                    {% else %}
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i> {{food.score}}
+                  {% endif %}
+                  </span>
+              <div class="popover__wrapper">
+              <!--<a href="#">-->
+              <!--  <span class="more"> More... </span>-->
+              <!--</a>-->
+              <div class="push popover__content">
+                <p class="popover__message">{{food.description}}</p>
+              </div>
+            </div>
+
+            </div>
+            <br>
+            <br>
+        </li>
+
+        {% endfor %}
+        
+        
+      </ul>
+    </div>
+    <br>
+    <a href="/myfood"><center><h3 style="color:  white;">View All My Food&gt;&gt;&gt;</h3></center></a>
+    
+    
+    
+
+	
+</div>
+
+ <!-- order history  -->
+<div class="container">
+<div class="row">
+<div class="box">
+<div class="col-lg-12">
+<hr />
+<div class="col-lg-12 text-center">
+<h1 class="brand-name">Order History</h1>
+<br>
+<hr class="visible-xs" /></div>
+</div>
+</div>
+
+<div class="row">
+<ul class="thumbnails list-unstyled">
+	
+	<table class="table" style="color: white">
+  <thead>
+    <tr style="background-color:#708FA1A5">
+      <!-- <th scope="col">#</th> -->
+      <th scope="col">Food</th>
+      <th scope="col">Price</th>
+      <th scope="col">Amount</th>
+			<th scope="col">Time</th>
+			<th scope="col">Seller</th>
+			<th scope="col">Phone #</th>
+			<th scope="col">Note</th>
+    </tr>
+  </thead>
+  <tbody>
+		{% for order in order_list %}
+			<tr>
+      	<th scope="row">{{order.food_name}}</th>
+      	<td>${{order.price}}</td>
+      	<td>{{order.food_amount}}</td>
+      	<td>{{order.order_time}}</td>
+				<td>{{order.seller_name}}</td>
+				<td>{{order.seller_phone}}</td>
+				<td>{{order.note}}</td>
+    	</tr>
+		{% endfor %}
+  </tbody>
+</table>
+</ul>
+</div>
+</div>
+</div>
+
+<!--selling orders-->
+<div class="container">
+<div class="row">
+<div class="box">
+<div class="col-lg-12">
+<hr />
+<div class="col-lg-12 text-center">
+<h1 class="brand-name">My Food's Orders</h1>
+<br>
+<hr class="visible-xs" /></div>
+</div>
+</div>
+
+<div class="row">
+<ul class="thumbnails list-unstyled">
+	
+	<table class="table" style="color: white">
+  <thead>
+    <tr style="background-color:#708FA1A5">
+      <!-- <th scope="col">#</th> -->
+      <th scope="col">Food</th>
+      <th scope="col">Price</th>
+      <th scope="col">Amount</th>
+			<th scope="col">Time</th>
+			<th scope="col">Buyer</th>
+			<th scope="col">Phone #</th>
+			<th scope="col">Note</th>
+    </tr>
+  </thead>
+  <tbody>
+		{% for order in selling_orders %}
+			<tr>
+      	<th scope="row">{{order.food_name}}</th>
+      	<td>${{order.price}}</td>
+      	<td>{{order.food_amount}}</td>
+      	<td>{{order.order_time}}</td>
+				<td>{{order.buyer_name}}</td>
+				<td>{{order.buyer_phone}}</td>
+				<td>{{order.note}}
+				    <div class="popover__wrapper">
+                      <a href="#">
+                        <span class="more"> Edit </span>
+                      </a>
+                      <div class="push popover__content">
+                        <form action="http://foooooodie.web.engr.illinois.edu:2000/note" method="POST">
+                            <div class="form-group">
+                                <label for="exampleFormControlTextarea1" style="color:black">New Note:</label>
+                                <!--<label name="order_id" style="color: white">{{order.id}}</label>-->
+                                <input type="hidden" name="order_id" value="{{order.order_id}}">
+                                <textarea class="form-control" name="newNote" rows="3"></textarea>
+                            </div>
+                        <button class="btn btn-sm btn-primary btn-block btn-signin">submit</button>
+                        </form>
+                      </div>
+                    </div>
+				</td>
+    	</tr>
+		{% endfor %}
+  </tbody>
+</table>
+<div class="popover__wrapper">
+              <div class="push popover__content">
+                <p class="popover__message">food.description</p>
+                <form action="http://foooooodie.web.engr.illinois.edu:2000/description" method="POST">
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1">New Description:</label>
+                        <label hidden name="food_id">food.id</label>
+                        <textarea class="form-control" name="newDescription" rows="3"></textarea>
+                    </div>
+                <button class="btn btn-sm btn-primary btn-block btn-signin">submit</button>
+                </form>
+              </div>
+            </div>
+</ul>
+</div>
+</div>
+</div>
+
+<div class="container">
+<div class="row">
+<div class="box">
+<div class="col-lg-12">
+<!-- <hr /> -->
+<div class="col-lg-12 text-center">
+<h1 class="brand-name">Preferred Category</h1>
+
+<hr class="visible-xs" /></div>
+</div>
+</div>
+</div>
+
+
+
+
+<form  action="http://foooooodie.web.engr.illinois.edu:2000/category" method="POST" style="
+    text-align: -webkit-center;
+">
+	{%for cat, value in preferred_cate.items()%}
+	{%if value==True%}
+	<label class="checkbox-inline" style="color: white">
+		<input type="checkbox" name="{{cat}}" checked="checked">{{cat}}
+	</label>
+	{%else%}
+	<label class="checkbox-inline" style="color: white">
+		<input type="checkbox" name="{{cat}}" >{{cat}}
+	</label>
+	{%endif%}
+{%endfor%}
+<br>
+<br>
+<center><button class="btn btn-search" style="color:white">Save</button></center>
+</form>
+<br>
+
+
+<!-- </div> -->
+
+
+<!-- </div> -->
+<br>
+<hr />
+<footer>
+<div class="container">
+<div class="row">
+<div class="col-lg-12 text-center">
+<div class="copyright">Copyright &copy; Foodie 2018</div>
+</div>
+</div>
+</div>
+</footer>
+
+<script>
+// console.log(session)
+        // function toggler(divId) {
+        //   $("#" + divId).toggle();
+        // };
+
+        // function submitAddress() {
+        //      var address = document.getElementById("address").value;
+        //      console.log(address);
+        //      $.post( "profile", {
+        //         address: address,
+        //      });
+        //      $("#myContent").toggle();
+        //      $.get("profile",{});
+        // }
+
+        // function saveDescription(food_id) {
+        //      var new_description = document.getElementById("description").value;
+        //      console.log(description);
+        //      console.log(food_id);
+        //      $.post( "/myfood", {
+        //         food_id: food_id,
+        //         new_description:new_description
+        //      });
+            //  $("#myContent").toggle();
+            //  $.get("profile",{});
+        // }
+
+        // function save() {
+        //     console.log("save clicked");
+        //   var Chinese_Food  = false;
+        //   var Indian_Food   = false;
+        //   var Japanese_Food = false;
+        //   var Korean_Food   = false;
+        //   var Mexican_Food  = false;
+        //   var Thai_Food     = false;
+        //   var US_Midwest_Food   = false;
+        //   var US_Southern_Food  = false;
+        //   var Italian_Food      = false;
+        //   var US_Western_Food   = false;
+        //   var French_Food       = false;
+        //   var US_Northeast_Food = false;
+
+
+        //   if ($('#Chinese_Food').is(':checked')) {
+        //     var Chinese_Food = true;
+        //   }
+        //   if ($('#Indian_Food').is(':checked')) {
+        //     var Indian_Food= true;
+        //   }
+        //   if ($('#Japanese_Food').is(':checked')) {
+        //     var Japanese_Food = true;
+        //   }
+        //   if ($('#Korean_Food').is(':checked')) {
+        //     var Korean_Food = true;
+        //   }
+        //   if ($('#Mexican_Food').is(':checked')) {
+        //     var Mexican_Food = true;
+        //   }
+        //   if ($('#Thai_Food ').is(':checked')) {
+        //     var Thai_Food = true;
+        //   }
+        //   if ($('#US_Midwest_Food').is(':checked')) {
+        //     var US_Midwest_Food = true;
+        //   }
+        //   if ($('#US_Southern_Food').is(':checked')) {
+        //     var US_Southern_Food = true;
+        //   }
+        //   if ($('#Italian_Food').is(':checked')) {
+        //     var Italian_Food = true;
+        //   }
+        //   if ($('#US_Western_Food').is(':checked')) {
+        //     var US_Western_Food = true;
+        //   }
+        //   if ($('#French_Food').is(':checked')) {
+        //     var French_Food = true;
+        //   }
+        //   if ($('#US_Northeast_Food').is(':checked')) {
+        //     var US_Northeast_Food = true;
+        //   }
+
+
+
+            //  console.log(fruits);
+            //  console.log("hhh");
+            //  $.post( "/category", {
+
+            //     Chinese_Food  : Chinese_Food ,
+                // Indian_Food   : Indian_Food  ,
+                // Japanese_Food : Japanese_Food,
+                // Korean_Food   : Korean_Food  ,
+                // Mexican_Food  : Mexican_Food ,
+                // Thai_Food     : Thai_Food    ,
+                // US_Midwest_Food  :US_Midwest_Food,
+                // US_Southern_Food :US_Southern_Food,
+                // Italian_Food     :Italian_Food,
+                // US_Western_Food  :US_Western_Food,
+                // French_Food      :French_Food,
+                // US_Northeast_Food:US_Northeast_Food
+        //      });
+
+
+        //   }
+</script>
+</div>
+
+<p>{% endblock %}</p>
+
+
+<!--</body>-->
+<!--</html>-->

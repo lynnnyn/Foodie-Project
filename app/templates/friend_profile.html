@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<!--<html>-->
+<!--<head><meta http-equiv="Content-Type" content="text/html; charset=gb18030">-->
+<!--	<title></title>-->
+<!--</head>-->
+<!--<body>-->
+{% extends "layout.html" %} {% block body %}
+<style type="text/css">@import 'https://fonts.googleapis.com/css?family=Lily+Script+One';
+/* body {
+  background: #eee;
+  font-family: 'Lily Script One';
+} */
+
+.card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 300px;
+  height: 300px;
+  margin: -150px;
+  float: left;
+  perspective: 500px;
+}
+
+.content {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+
+  transition: transform 1s;
+  transform-style: preserve-3d;
+}
+
+.card:hover .content {
+  transform: rotateY( 180deg ) ;
+  transition: transform 0.5s;
+}
+
+.front,
+.back {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background: white;
+  line-height: 300px;
+  color: #03446A;
+  text-align: center;
+  font-size: 60px;
+  border-radius: 5px;
+  backface-visibility: hidden;
+}
+
+.back {
+  background: #03446A;
+  color: white;
+  transform: rotateY( 180deg );
+}
+
+.btn-search {
+	  background: #424242;
+	  border-radius: 0;
+	  color: #fff;
+	  border-width: 1px;
+	  border-style: solid;
+	  border-color: #fff;
+	}
+	.btn-search:link, .btn-search:visited {
+	  color: #fff;
+	}
+	.btn-search:active, .btn-search:hover {
+	  background: #1c1c1c;
+	  color: #fff;
+	}
+
+.brand-name{
+  color: #fff;
+}
+.copyright{
+  color: #fff5;
+}
+
+.span3{
+  background: #0005;
+  color:#fff9;
+}
+.well{
+  border-color: #fff5
+}
+
+.fade {
+    opacity: 50;
+
+}
+
+.modal {
+      position: relative;
+}
+.vertical-alignment-helper {
+    display:table;
+    height: 100%;
+    width: 100%;
+}
+.vertical-align-center {
+    /* To center vertically */
+    display: table-cell;
+    vertical-align: middle;
+}
+.modal-content {
+    /* Bootstrap sets the size of the modal in the modal-dialog class, we need to inherit it */
+    width:inherit;
+    height:inherit;
+    /* To center horizontally */
+    margin: 0 auto;
+}
+/*.hidden {*/
+/*     display:none;*/
+/*}*/
+
+.form-check {
+  color:white
+}
+
+.table {
+	color:white
+	border-color:white
+}
+
+.popover__title {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 24px;
+  line-height: 36px;
+  text-decoration: none;
+  color: rgb(228, 68, 68);
+  text-align: center;
+  padding: 15px 0;
+}
+
+.popover__wrapper {
+    position: relative;
+    /* margin-top: 1.5rem; */
+    display: inline-block;
+}
+.popover__content {
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    left: 0px;
+    top: 40px;
+    transform: translate(0,10px);
+    background-color: rgba(255, 255, 255, 255);
+    padding: 1.5rem;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+    width: 250px;
+}
+.popover__content:before {
+    position: absolute;
+    z-index: -1;
+    content: '';
+    right: calc(50% - 10px);
+    top: -8px;
+    border-style: solid;
+    border-width: 0 10px 10px 10px;
+    border-color: transparent transparent #BFBFBF transparent;
+    transition-duration: 0.3s;
+    transition-property: transform;
+}
+.popover__wrapper:hover .popover__content {
+    z-index: 10;
+    opacity: 1;
+    visibility: visible;
+    transform: translate(0,-20px);
+    transition: all 0.5s cubic-bezier(0.75, -0.02, 0.2, 0.97);
+}
+.popover__message {
+  text-align: center;
+}
+.caption{
+  left: 7px;
+  position: inherit;
+}
+.food_Name{
+  color:white;
+  padding: 1px;
+  font-size:18px;
+}
+.more{
+  color:#00a69999;
+}
+
+.row{
+  width:auto;
+}
+
+.container{
+  width:auto;
+}
+
+/*.col-md-4 {*/
+/*    width: 33.33333333333333%;*/
+/*    border-right-color: #e0e0e0;*/
+/*    border-right-width: 1px;*/
+/*    border-right-style: solid;*/
+/*}*/
+.lib-panel {
+    margin-bottom: 20Px;
+}
+.lib-panel img {
+    width: 100%;
+    background-color: transparent;
+}
+
+.lib-panel .row,
+.lib-panel .col-md-6 {
+    padding: 0;
+    background-color: #FFFFFF;
+}
+
+
+.lib-panel .lib-row {
+    padding: 0 20px 0 20px;
+}
+
+.lib-header1 {
+    font-size: 26px;
+    color: white;
+    padding: 10px 20px 0 20px;
+}
+
+.lib-panel .lib-row.lib-header {
+    background-color: #FFFFFF;
+    font-size: 20px;
+    padding: 10px 20px 0 20px;
+}
+
+.lib-panel .lib-row.lib-header .lib-header-seperator {
+    height: 2px;
+    width: 26px;
+    background-color: #d9d9d9;
+    margin: 7px 0 7px 0;
+}
+
+.lib-panel .lib-row.lib-desc {
+    position: relative;
+    height: 100%;
+    display: block;
+    font-size: 13px;
+}
+.lib-panel .lib-row.lib-desc a{
+    position: absolute;
+    width: 100%;
+    bottom: 10px;
+    left: 20px;
+}
+
+.row-margin-bottom {
+    margin-bottom: 20px;
+}
+
+.box-shadow {
+    -webkit-box-shadow: 0 0 10px 0 rgba(0,0,0,.10);
+    box-shadow: 0 0 10px 0 rgba(0,0,0,.10);
+}
+
+.no-padding {
+    padding: 0;
+}
+
+.badge-secondary{
+    font-size:26px;
+    background-color:rgb(88, 210, 227);
+    color:rgb(40, 68, 81);
+}
+
+.index-content a:hover{
+    color:black;
+    text-decoration:none;
+}
+.index-content{
+    margin-bottom:20px;
+    padding:50px 0px;
+    
+}
+.index-content .row{
+    margin-top:20px;
+}
+.index-content a{
+    color: black;
+}
+.index-content .card{
+    background-color: #FFFFFF;
+    padding:0;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius:4px;
+    box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.3);
+
+}
+.index-content .card:hover{
+    box-shadow: 0 16px 24px 2px rgba(0,0,0,0.14), 0 6px 30px 5px rgba(0,0,0,0.12), 0 8px 10px -5px rgba(0,0,0,0.3);
+    color:black;
+}
+.index-content .card img{
+    width:100%;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+.index-content .card h4{
+    margin:20px;
+}
+.index-content .card p{
+    margin:20px;
+    opacity: 0.65;
+}
+.index-content .blue-button{
+    width: 100px;
+    -webkit-transition: background-color 1s , color 1s; /* For Safari 3.1 to 6.0 */
+    transition: background-color 1s , color 1s;
+    min-height: 20px;
+    background-color: #002E5B;
+    color: #ffffff;
+    border-radius: 4px;
+    text-align: center;
+    font-weight: lighter;
+    margin: 0px 20px 15px 20px;
+    padding: 5px 0px;
+    display: inline-block;
+}
+.index-content .blue-button:hover{
+    background-color: #dadada;
+    color: #002E5B;
+}
+@media (max-width: 768px) {
+
+    .index-content .col-lg-4 {
+        margin-top: 20px;
+    }
+}
+.gallery{
+    margin-top: 100px;
+}
+.gallery-item{
+	margin-bottom: 30px;
+}
+.modal-footer{
+	text-align: center;
+}
+.pagination{
+	margin: 0;
+}
+
+
+
+</style>
+
+
+<div class="container">
+    <div class="span3 well">
+        <div class='row'>
+            <div class="col-md-4">
+                <center><a><img class="img-circle" height="300" name="aboutme" src="{{info.image}}" width="300" /></a>
+                
+                <form action="http://foooooodie.web.engr.illinois.edu:2000/friend/{{info.id}}" method="POST">
+                    <h1>{{info.name}} 
+                        
+                        {%if info.id == current_id%}
+                            <span></span>
+                        {%elif is_friend%}
+                            <button class="btn btn-search">Unfollow</button>
+                            
+                        {%else%}
+                            <button class="btn btn-search">Follow</button>
+                        {%endif%}
+                        <input hidden name="friend_id" style="color:black" value={{info.id}}>
+                    </h1>
+                </form>
+                
+                </center>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-7">
+                <br>
+                <br>
+                <div class="lib-row lib-header1">
+                    <i class="fas fa-user-circle"></i>
+                    {%if info.gender==1%}
+                        Male 
+                    {%else%}
+                        Female
+                    {%endif%}
+                    
+                </div>
+                <div class="lib-header-seperator"></div>
+                <div class="lib-row lib-header1">
+                  <i class="fas fa-birthday-cake"></i>
+                  {{info.birth_year}}
+                </div>
+                <div class="lib-header-seperator"></div>
+                <div class="lib-row lib-header1">
+                  
+                  Score as a seller:
+                  <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    {{info.selling_score}}
+                </div>
+                <div class="lib-header-seperator"></div>
+                <div class="lib-row lib-header1">
+                    Score as a buyer:  
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    {{info.purchasing_score}}
+                </div>
+                <div class="lib-header-seperator"></div>
+                <div class="lib-row lib-header1">
+                   <i class="fas fa-heart"></i>
+                   {%for p in friendprefer%}
+                    <span class="badge badge-secondary" >{{p.name}}  </span>
+                   {%endfor%}
+                   <!--<span class="badge badge-secondary" >Chinese food  </span>-->
+                   <!--<span class="badge badge-secondary" >Chinese food  </span>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- FOOD -->
+
+<div class="container" style="width:auto">
+
+	<div class="row" style="width:auto">
+		<div class="box">
+			<div class="col-lg-15">
+				<hr />
+				<div class="col-lg-15 text-center">
+				<h1 class="brand-name">{{info.name}}'s Food</h1>
+    
+
+				<hr class="visible-xs" />
+			</div>
+			<br>
+		</div>
+	</div>
+</div>
+
+    <div class="row" style="width:auto">
+      <ul class="thumbnails list-unstyled" style="max-height:100px">
+
+        {% for food in foods %}
+        <li class="col-md-4">
+            <div style="padding:4px">
+              <img class="img-rounded" alt="450x300"  style="width: 100%" style src="{{food.image}}">
+            </div>
+            <div class="caption">
+              <a href="http://foooooodie.web.engr.illinois.edu:2000/food/{{food.id}}">    
+              <p style="margin:1px" class="food_Name">{{food.name}}</p>
+              </a>
+              <span style="color:grey">${{food.price}} | Only {{food.available_amount}} left </span>
+              <div class="popover__wrapper">
+              <!--<a href="#">-->
+              <!--  <span class="more"> More... </span>-->
+              <!--</a>-->
+              <div class="push popover__content">
+                <p class="popover__message">{{food.description}}</p>
+              </div>
+            </div>
+
+            </div>
+            <br>
+            <br>
+        </li>
+
+        {% endfor %}
+      </ul>
+    </div>
+</div>
+
+
+
+
+
+
+<p>{% endblock %}</p>
+
+

@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<!--<html>-->
+<!--<head><meta http-equiv="Content-Type" content="text/html; charset=gb18030">-->
+<!--	<title></title>-->
+<!--</head>-->
+<!--<body>-->
+{% extends "layout.html" %} {% block body %}
+<style type="text/css">@import 'https://fonts.googleapis.com/css?family=Lily+Script+One';
+/* body {
+  background: #eee;
+  font-family: 'Lily Script One';
+} */
+
+.card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 300px;
+  height: 300px;
+  margin: -150px;
+  float: left;
+  perspective: 500px;
+}
+
+.content {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+
+  transition: transform 1s;
+  transform-style: preserve-3d;
+}
+
+.card:hover .content {
+  transform: rotateY( 180deg ) ;
+  transition: transform 0.5s;
+}
+
+.front,
+.back {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background: white;
+  line-height: 300px;
+  color: #03446A;
+  text-align: center;
+  font-size: 60px;
+  border-radius: 5px;
+  backface-visibility: hidden;
+}
+
+.back {
+  background: #03446A;
+  color: white;
+  transform: rotateY( 180deg );
+}
+
+.btn-search {
+        margin-bottom: 5px;
+	  background: #424242;
+	  border-radius: 0;
+	  color: #fff;
+	  border-width: 1px;
+	  border-style: solid;
+	  border-color: #fff;
+	}
+	.btn-search:link, .btn-search:visited {
+	  color: #fff;
+	}
+	.btn-search:active, .btn-search:hover {
+	  background: #1c1c1c;
+	  color: #fff;
+	}
+
+.brand-name{
+  color: #fff;
+}
+.copyright{
+  color: #fff5;
+}
+
+.span3{
+  background: #0005;
+  color:#fff9;
+}
+.well{
+  border-color: #fff5
+}
+
+.fade {
+    opacity: 50;
+
+}
+
+.modal {
+      position: relative;
+}
+.vertical-alignment-helper {
+    display:table;
+    height: 100%;
+    width: 100%;
+}
+.vertical-align-center {
+    /* To center vertically */
+    display: table-cell;
+    vertical-align: middle;
+}
+.modal-content {
+    /* Bootstrap sets the size of the modal in the modal-dialog class, we need to inherit it */
+    width:inherit;
+    height:inherit;
+    /* To center horizontally */
+    margin: 0 auto;
+}
+/*.hidden {*/
+/*     display:none;*/
+/*}*/
+
+.form-check {
+  color:white
+}
+
+.table {
+	color:white
+	border-color:white
+}
+
+.popover__title {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 24px;
+  line-height: 36px;
+  text-decoration: none;
+  color: rgb(228, 68, 68);
+  text-align: center;
+  padding: 15px 0;
+}
+
+.popover__wrapper {
+    position: relative;
+    /* margin-top: 1.5rem; */
+    display: inline-block;
+}
+.popover__content {
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    left: 0px;
+    top: 40px;
+    transform: translate(0,10px);
+    background-color: rgba(255, 255, 255, 255);
+    padding: 1.5rem;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+    width: 250px;
+}
+.popover__content:before {
+    position: absolute;
+    z-index: -1;
+    content: '';
+    right: calc(50% - 10px);
+    top: -8px;
+    border-style: solid;
+    border-width: 0 10px 10px 10px;
+    border-color: transparent transparent #BFBFBF transparent;
+    transition-duration: 0.3s;
+    transition-property: transform;
+}
+.popover__wrapper:hover .popover__content {
+    z-index: 10;
+    opacity: 1;
+    visibility: visible;
+    transform: translate(0,-20px);
+    transition: all 0.5s cubic-bezier(0.75, -0.02, 0.2, 0.97);
+}
+.popover__message {
+  text-align: center;
+}
+.caption{
+  left: 7px;
+  position: inherit;
+}
+.food_Name{
+  color:white;
+  padding: 1px;
+  font-size:18px;
+}
+.more{
+  color:#00a69999;
+}
+
+.row{
+  width:auto;
+}
+
+.container{
+  width:auto;
+}
+.card-img-bottom {
+  color: #fff;
+  height: 20rem;
+  background: url(images/img1.jpg) center no-repeat;
+  background-size: cover;
+}
+
+.lib-panel {
+    margin-bottom: 20Px;
+}
+.lib-panel img {
+    width: 100%;
+    background-color: transparent;
+}
+
+.lib-panel .row,
+.lib-panel .col-md-6 {
+    padding: 0;
+    background-color: #FFFFFF;
+}
+
+
+.lib-panel .lib-row {
+    padding: 0 20px 0 20px;
+}
+
+.lib-panel .lib-row.lib-header {
+    background-color: #FFFFFF;
+    font-size: 20px;
+    padding: 10px 20px 0 20px;
+}
+
+.lib-panel .lib-row.lib-header .lib-header-seperator {
+    height: 2px;
+    width: 26px;
+    background-color: #d9d9d9;
+    margin: 7px 0 7px 0;
+}
+
+.lib-panel .lib-row.lib-desc {
+    position: relative;
+    height: 100%;
+    display: block;
+    font-size: 13px;
+}
+.lib-panel .lib-row.lib-desc a{
+    position: absolute;
+    width: 100%;
+    bottom: 10px;
+    left: 20px;
+}
+
+.row-margin-bottom {
+    margin-bottom: 20px;
+}
+
+.box-shadow {
+    -webkit-box-shadow: 0 0 10px 0 rgba(0,0,0,.10);
+    box-shadow: 0 0 10px 0 rgba(0,0,0,.10);
+}
+
+.no-padding {
+    padding: 0;
+}
+
+
+
+</style>
+
+
+
+
+
+<!-- Order History -->
+
+
+
+<div class="container">
+    <br><br>
+    <div class="lib-panel">
+        <div class="row box-shadow">
+            <div class="col-md-8">
+                <img class="lib-img-show" src="{{food.image}}">
+            </div>
+            <div class="col-md-4">
+                <div class="lib-row lib-header">
+                    <h1>{{food.name}}</h1>
+                  
+                </div>
+                <div class="lib-header-seperator"></div>
+                <div class="lib-row lib-header">
+                    <i class="fas fa-id-card"></i> Made by
+                    {% if current_user == food.maker_id %}
+                        <a href='/profile'>
+                    {% else %}
+                        <a href='/friend/{{food.maker_id}}'>
+                    {% endif %}
+                    {{food.maker_name}}
+                   </a>
+                </div>
+                <div class="lib-header-seperator"></div>
+                <div class="lib-row lib-header">
+                   <i class="fas fa-dollar-sign"></i>
+                   {{food.price}}
+                </div>
+                <div class="lib-header-seperator"></div>
+                <div class="lib-row lib-header">
+                  <i class="fas fa-utensils"></i>
+                  Only {{food.available_amount}} left
+                </div>
+                <div class="lib-header-seperator"></div>
+                
+                
+            
+                <div class="lib-row lib-header">
+                    <i class="fas fa-comment-alt"></i>
+                    {{food.description}}
+                    {% if food.maker_id == current_user%}
+                    <div class="popover__wrapper">
+                        <a href="#">
+                          <span class="more"> Edit  </span>
+                        </a>
+                        
+                        <div class="push popover__content">
+                          <form action="http://foooooodie.web.engr.illinois.edu:2000/description" method="POST">
+                              <div class="form-group">
+                                  <label for="exampleFormControlTextarea1">New Description:</label>
+                                  <!--<label name="food_id" style="color:black">{{food.id}}</label>-->
+                                  <input type="hidden" name="food_id" value="{{food.id}}">
+                                  <textarea class="form-control" name="newDescription" rows="3"></textarea>
+                              </div>
+                          <button class="btn btn-sm btn-primary btn-block btn-signin">submit</button>
+                          </form>
+                        </div>
+                        
+                    </div>
+                    {%endif%}
+                </div>
+                <div class="lib-header-seperator"></div>
+                 <div class="lib-row lib-header">
+                    {% if food.score<=0.5 %}
+                        <i class="fas fa-star-half"></i>{{food.score}}
+                    {% elif food.score<=1 %}
+                        <i class="fas fa-star"></i>
+                        {{food.score}}
+                    {% elif food.score<=1.5 %}
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half"></i>
+                        {{food.score}}
+                    {% elif food.score<=2 %}
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        {{food.score}}
+                    {% elif food.score<=2.5 %}
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half"></i>
+                        {{food.score}}
+                    {% elif food.score<=3 %}
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        {{food.score}}
+                    {% elif food.score<=3.5 %}
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        
+                        <i class="fas fa-star-half"></i>
+                        {{food.score}}
+                    {% elif food.score<=4 %}
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i> {{food.score}}
+                    {% elif food.score<=4.5 %}
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half"></i>
+                        {{food.score}}
+                    {% else %}
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i> {{food.score}}
+                  {% endif %}
+                </div>
+                
+                <div class="lib-header-seperator"></div>
+                {% if food.maker_id != current_user%}
+                <form action="http://foooooodie.web.engr.illinois.edu:2000/food/{{food.id}}" method="POST">
+                    <div class="lib-row lib-header">
+                      <input id="number" type="number" value="1" name="amount">
+                      <button class="btn btn-search">BUY</button>
+                    </div>
+                </form>
+                <div class="lib-header-seperator"></div>
+                {%endif%}
+            </div>
+        </div>
+    </div>
+</div>
+    
+{% if food.maker_id == current_user%}
+<div class="container">
+	<div class="row">
+		<div class="box">
+			<div class="col-lg-12">
+			
+				<div class="col-lg-12 text-center">
+					<h1 class="brand-name">Orders</h1>
+					<hr class="visible-xs" />
+				</div>
+			</div>
+		</div>
+	</div>
+<hr />
+<ul class="thumbnails list-unstyled">
+	
+	<table class="table" style="color: white">
+  <thead>
+    <tr style="background-color:#708FA1A5">
+        <!-- <th scope="col">#</th> -->
+        <th scope="col">Order ID</th>
+        <th scope="col">Price</th>
+        <th scope="col">Amount</th>
+	    <th scope="col">Time</th>
+	    <th scope="col">Buyer</th>
+	    <th scope="col">Phone #</th>
+	    <th scope="col">Note</th>
+	    <th scope="col">Score</th>
+    </tr>
+  </thead>
+  <tbody>
+		{% for order in orders %}
+		<tr>
+      	<th scope="row">{{order.order_id}}</th>
+      	<td>${{order.price}}</td>
+      	<td>{{order.food_amount}}</td>
+      	<td>{{order.order_time}}</td>
+		<td>{{order.buyer_name}}</td>
+		<td>{{order.buyer_phone}}</td>
+		<td>{{order.note}}</td>
+		<td>{{order.buyer_score}}</td>
+    	</tr>
+		{% endfor %}
+  </tbody>
+</table>
+</ul>
+	
+</div>
+{%endif%}
+
+
+
+<p>{% endblock %}</p>
+
+
+<!--</body>-->
+<!--</html>-->

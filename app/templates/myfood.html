@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<!--<html>-->
+<!--<head><meta http-equiv="Content-Type" content="text/html; charset=gb18030">-->
+<!--	<title></title>-->
+<!--</head>-->
+<!--<body>-->
+{% extends "layout.html" %} {% block body %}
+<style type="text/css">@import 'https://fonts.googleapis.com/css?family=Lily+Script+One';
+/* body {
+  background: #eee;
+  font-family: 'Lily Script One';
+} */
+
+.card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 300px;
+  height: 300px;
+  margin: -150px;
+  float: left;
+  perspective: 500px;
+}
+
+.content {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+
+  transition: transform 1s;
+  transform-style: preserve-3d;
+}
+
+.card:hover .content {
+  transform: rotateY( 180deg ) ;
+  transition: transform 0.5s;
+}
+
+.front,
+.back {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background: white;
+  line-height: 300px;
+  color: #03446A;
+  text-align: center;
+  font-size: 60px;
+  border-radius: 5px;
+  backface-visibility: hidden;
+}
+
+.back {
+  background: #03446A;
+  color: white;
+  transform: rotateY( 180deg );
+}
+
+.btn-search {
+	  background: #424242;
+	  border-radius: 0;
+	  color: #fff;
+	  border-width: 1px;
+	  border-style: solid;
+	  border-color: #fff;
+	}
+	.btn-search:link, .btn-search:visited {
+	  color: #fff;
+	}
+	.btn-search:active, .btn-search:hover {
+	  background: #1c1c1c;
+	  color: #fff;
+	}
+
+.brand-name{
+  color: #fff;
+}
+.copyright{
+  color: #fff5;
+}
+
+.span3{
+  background: #0005;
+  color:#fff9;
+}
+.well{
+  border-color: #fff5
+}
+
+.fade {
+    opacity: 50;
+
+}
+
+.modal {
+      position: relative;
+}
+.vertical-alignment-helper {
+    display:table;
+    height: 100%;
+    width: 100%;
+}
+.vertical-align-center {
+    /* To center vertically */
+    display: table-cell;
+    vertical-align: middle;
+}
+.modal-content {
+    /* Bootstrap sets the size of the modal in the modal-dialog class, we need to inherit it */
+    width:inherit;
+    height:inherit;
+    /* To center horizontally */
+    margin: 0 auto;
+}
+/*.hidden {*/
+/*     display:none;*/
+/*}*/
+
+.form-check {
+  color:white
+}
+
+.table {
+	color:white
+	border-color:white
+}
+
+.popover__title {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 24px;
+  line-height: 36px;
+  text-decoration: none;
+  color: rgb(228, 68, 68);
+  text-align: center;
+  padding: 15px 0;
+}
+
+.popover__wrapper {
+    position: relative;
+    /* margin-top: 1.5rem; */
+    display: inline-block;
+}
+.popover__content {
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    left: 0px;
+    top: 40px;
+    transform: translate(0,10px);
+    background-color: rgba(255, 255, 255, 255);
+    padding: 1.5rem;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+    width: 250px;
+}
+.popover__content:before {
+    position: absolute;
+    z-index: -1;
+    content: '';
+    right: calc(50% - 10px);
+    top: -8px;
+    border-style: solid;
+    border-width: 0 10px 10px 10px;
+    border-color: transparent transparent #BFBFBF transparent;
+    transition-duration: 0.3s;
+    transition-property: transform;
+}
+.popover__wrapper:hover .popover__content {
+    z-index: 10;
+    opacity: 1;
+    visibility: visible;
+    transform: translate(0,-20px);
+    transition: all 0.5s cubic-bezier(0.75, -0.02, 0.2, 0.97);
+}
+.popover__message {
+  text-align: center;
+}
+.caption{
+  left: 7px;
+  position: inherit;
+}
+.food_Name{
+  color:white;
+  padding: 1px;
+  font-size:18px;
+}
+.more{
+  color:#00a69999;
+}
+
+.row{
+  width:auto;
+}
+
+.container{
+  width:auto;
+}
+
+
+</style>
+</p>
+
+
+
+
+<!-- Order History -->
+
+<div class="container">
+	<div class="row">
+		<div class="box">
+			<div class="col-lg-12">
+			
+				<div class="col-lg-12 text-center">
+					<h1 class="brand-name">My Food</h1>
+					<hr class="visible-xs" />
+				</div>
+			</div>
+		</div>
+	</div>
+
+<hr />	
+
+
+<div class="row" style="width:auto">
+      <ul class="thumbnails list-unstyled" style="max-height:100px">
+
+        {% for food in myfood %}
+<li class="col-md-4">
+            <div style="padding:4px">
+              <img class="img-rounded" alt="450x300"  style="width: 100%" style src="{{food.image}}">
+            </div>
+            <div class="caption">
+              <a href="http://foooooodie.web.engr.illinois.edu:2000/food/{{food.id}}">    
+              <p style="margin:1px" class="food_Name">{{food.name}}</p>
+              </a>
+              <span style="color:grey">${{food.price}} | Only {{food.available_amount}} left | </span>
+              <span style="color:#4dc1be">
+              {% if food.score<=0.5 %}
+                        <i class="fas fa-star-half"></i>{{food.score}}
+                    {% elif food.score<=1 %}
+                        <i class="fas fa-star"></i>
+                        {{food.score}}
+                    {% elif food.score<=1.5 %}
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half"></i>
+                        {{food.score}}
+                    {% elif food.score<=2 %}
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        {{food.score}}
+                    {% elif food.score<=2.5 %}
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half"></i>
+                        {{food.score}}
+                    {% elif food.score<=3 %}
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        {{food.score}}
+                    {% elif food.score<=3.5 %}
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        
+                        <i class="fas fa-star-half"></i>
+                        {{food.score}}
+                    {% elif food.score<=4 %}
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i> {{food.score}}
+                    {% elif food.score<=4.5 %}
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half"></i>
+                        {{food.score}}
+                    {% else %}
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i> {{food.score}}
+                  {% endif %}
+                  </span>
+              <div class="popover__wrapper">
+              <!--<a href="#">-->
+              <!--  <span class="more"> More... </span>-->
+              <!--</a>-->
+              <div class="push popover__content">
+                <p class="popover__message">{{food.description}}</p>
+              </div>
+            </div>
+
+            </div>
+            <br>
+            <br>
+        </li>
+
+        {% endfor %}
+      </ul>
+    </div>
+    
+
+	
+</div>
+
+
+
+
+<p>{% endblock %}</p>
+
+
+<!--</body>-->
+<!--</html>-->
