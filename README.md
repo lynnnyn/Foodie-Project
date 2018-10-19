@@ -18,8 +18,6 @@ a website for food share website
 ![alt text](https://github.com/lynnnyn/Foodie-Project/blob/master/hSySN0cGZg.gif)
 
 
-
-
 ## Installation
 1. Get the code. Clone this git repository and check out the latest release:
 
