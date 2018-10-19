@@ -15,7 +15,7 @@ a website for food share website
 <https://youtu.be/CNj-uBn5mi4>
 
 #### GIF Display
-![alt text](http://g.recordit.co/hSySN0cGZg.gif)
+![alt text](https://github.com/lynnnyn/Foodie-Project/blob/master/hSySN0cGZg.gif)
 
 
 
