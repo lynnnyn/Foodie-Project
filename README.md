@@ -1,5 +1,5 @@
 # Foodie-Project
-a website for food share
+a website for food share website
 
 # About our website
 ## Technology stack
@@ -10,11 +10,24 @@ a website for food share
 * MySQL
 * cPanel
 
+## Website Display 
+#### Video Display
+<https://youtu.be/CNj-uBn5mi4>
+
+#### GIF Display
+![alt text](http://g.recordit.co/hSySN0cGZg.gif)
+
+
+
+
 ## Installation
 1. Get the code. Clone this git repository and check out the latest release:
-git clone https://github.com/lynnnyn/Foodie-Project.git
-    cd Foodie-Project
-    git checkout latest
+
+        git clone https://github.com/lynnnyn/Foodie-Project.git
+        
+        cd Foodie-Project
+        
+        git checkout latest
 
 2. run main.py
 
