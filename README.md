@@ -37,4 +37,4 @@ Calculate similarity based on cosine distance
 
 #####More Details:
 
-Check __init__.py
+Check "__init\__.py"
