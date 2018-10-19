@@ -35,6 +35,6 @@ Code for food share website
 
 Calculate similarity based on cosine distance
 
-#####More Details:
+##### More Details:
 
 Check "__init\__.py"
